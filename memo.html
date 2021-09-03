@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>memo.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hello-programming-world">Hello, Programming World!</h1>
+<h1 id="1%E6%97%A5%E7%9B%AE-1-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC">1日目-1 プログラミングの基本</h1>
+<h2 id="%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A8%E3%81%AF">プログラミングとは？</h2>
+<p>「プログラミング」とは、「プログラム」を作ることです。
+では、「プログラム」とは何でしょうか？</p>
+<p>「プログラム」は「コンピューターへの命令」のことです。</p>
+<p>今やコンピューターは身の回りにあふれています。パソコンやスマートフォンだけではありません。毎日使うような、テレビ、炊飯器、冷蔵庫、洗濯機などにもコンピューターが内蔵されています。それらのコンピューターは「プログラム」という命令に従って動いています。私たちは毎日「プログラム」のおかげで快適な生活を送っているのです。</p>
+<h2 id="%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AF%E4%BD%95%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AE">プログラムは何ができるの？</h2>
+<p>コンピューターにも得意なこと、不得意なことがあります。それらの特徴を知って、プログラミングができると何ができるようになるか、考えましょう。</p>
+<h3 id="%E5%BE%97%E6%84%8F%E3%81%AA%E3%81%93%E3%81%A8">得意なこと</h3>
+<ul>
+<li>人間より速く計算できる</li>
+<li>いつでも、いつまでも動くことができる</li>
+</ul>
+<h3 id="%E4%B8%8D%E5%BE%97%E6%84%8F%E3%81%AA%E3%81%93%E3%81%A8">不得意なこと</h3>
+<ul>
+<li>「感情」を扱うこと</li>
+</ul>
+<p>・・・どうですか？プログラミングでコンピューターを操ることができるようになれば、これまで面倒だったことをコンピューターに任せることができるかもしれません。さらに、自分の力ではできなかったことをコンピューターに頼むことができるかもしれませんね。</p>
+<p>「プログラミング」とは何なのか、イメージがつかめてきましたか？では、次にプログラムのしくみを見てみましょう。</p>
+<h2 id="%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%81%97%E3%81%8F%E3%81%BF">プログラムのしくみ</h2>
+<p>プログラムの進み方には3つの大原則があります。</p>
+<ul>
+<li>
+<p>順次</p>
+<p>「命令が書かれた順番通りに処理が進む」</p>
+</li>
+<li>
+<p>分岐</p>
+<p>「条件によって処理を枝分かれさせる」</p>
+</li>
+<li>
+<p>反復</p>
+<p>「一定の条件を満たすまで処理を繰り返す」</p>
+</li>
+</ul>
+<p>これは、プログラミングする上でとても大切な考え方です。どのプログラミング言語を使っても、この考え方は共通です。</p>
+<p>・・・言語？不思議に思った方もいるかもしれませんね。実は、プログラムはコンピューターと友達になるための「言語」なのです。</p>
+<h2 id="%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E">プログラミング言語</h2>
+<p>世界には日本語、英語、ロシア語と、様々な言語があります。これは「人と人」がコミュニケーションをとるためのものですね。実は、「人とコンピューター」がコミュニケーションをとるための「言語」があって、これにも様々な種類があります。次に代表的なものを挙げます。聞いたことがある言語はありますか？</p>
+<ul>
+<li>C言語</li>
+<li>Java</li>
+<li>Python</li>
+<li>Ruby</li>
+</ul>
+<p>プログラミング言語には100以上の種類があります。それぞれに特徴があって、その言語が「得意なこと」も存在します。</p>
+<p>今回使用するのは「Python」というプログラミング言語です。「パイソン」と読みます。では、これから学ぶ「Python」について知りましょう。</p>
+<h2 id="python%E3%81%A8%E3%81%AF">Pythonとは？</h2>
+<p>「Python」は、1991年に開発されたプログラミング言語です。マイクロソフト社やアップル社でも利用される、世界中で人気のある言語です。今話題の「AI / 人工知能」の分野でも活躍しています。</p>
+<h2 id="%E3%81%AA%E3%81%9Cpython%E3%81%AA%E3%81%AE%E3%81%8B">なぜPythonなのか？</h2>
+<p>プログラミングを始めるにあたって「学びやすさ」は重要です。「Hello World!」と表示するプログラムを例にとって、先ほど挙げた「C言語」「Java」「Python」「Ruby」を比較してみましょう。</p>
+<ul>
+<li>C言語</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'Hello World!'</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<ul>
+<li>Java</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span> <span class="hljs-params">(String[] args)</span></span>{
+        System.out.println(<span class="hljs-string">"Hello World!"</span>);
+    }
+}
+</div></code></pre>
+<ul>
+<li>Python</li>
+</ul>
+<pre class="hljs"><code><div>print(<span class="hljs-string">'Hello World!'</span>)
+</div></code></pre>
+<ul>
+<li>Ruby</li>
+</ul>
+<pre class="hljs"><code><div>puts <span class="hljs-string">"Hello World!"</span>
+</div></code></pre>
+<p>いかがでしょうか。「C言語」や「Java」では5行で書いていることが、「Python」や「Ruby」ではたったの1行で終わりです。いざプログラミングを始めるぞ、と手を出してみたものの、初歩的な段階で5行ものプログラムが出てきたらどうでしょう。これではきっと、勉強がなかなか進みませんね。その点「Python」や「Ruby」は親しみやすい言語だといえます。</p>
+<p>では「Python」vs「Ruby」ですが、実はこれ、とてもいい勝負なのです。ここで両者のプロフィールを見てみましょう。</p>
+<h3 id="python">Python</h3>
+<ul>
+<li>オランダの「グイド・ヴァンロッサム」氏が開発</li>
+</ul>
+<h3 id="ruby">Ruby</h3>
+<ul>
+<li>日本の「まつもとゆきひろ」氏が開発</li>
+</ul>
+<p>「Python」は世界中で使われている、すなわち、世界中でPythonが学ばれているということです。ですから、インターネットで検索した時の情報の量が豊富です。一方「Ruby」は日本発祥の言語ですから日本語での解説が充実しています。むむむ、互角だ。。。</p>
+<p>ということで、私はこの勝負は「引き分け」だと思います。私のプログラミングの入口は「Ruby」でした。しかし途中から「Python」を使うようになりました。以後そのまま「Python」でプログラミングを勉強していきました。ですから改めて両者のプログラムを見比べた際、同じ内容でも慣れた「Python」の方がしっくりくるのです。（かっこの使い方とか、、、）結局ここは私の「好み」です。もちろん「Ruby」も素晴らしい言語ですので、興味をもったらぜひ勉強してみてくださいね。</p>
+<h1 id="1%E6%97%A5%E7%9B%AE-2-python%E3%81%AE%E5%9F%BA%E6%9C%AC">1日目-2 Pythonの基本</h1>
+<h2 id="%E6%96%87%E5%AD%97%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%97%E3%82%88%E3%81%86">文字を表示しよう</h2>
+<p>何かを始める時には「儀式」があるものです。プログラミングの世界でも「儀式」があります。Pythonを学び始める際に、決まって作られるプログラムがあるので紹介します。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>「儀式」のプログラムといえば、長いものを思い浮かべるかもしれません。（卒業式とか・・・）でも、Pythonの儀式のプログラムはたった1行だけです。短いですが、これはPythonプログラミングの基礎の基礎の基礎です。</p>
+<p>「 print() 」は、「括弧の中身を表示する」という命令です。この場合、中身は「 &quot;Hello, World!&quot; 」ですね。ここで重要なのが、記号「 &quot; 」（ダブルクォーテーション）で表示したいものを囲むことです。これで囲んだものは「文字列」として扱われます。</p>
+<h2 id="%E6%96%87%E5%AD%97%E3%81%AE%E8%B6%B3%E3%81%97%E7%AE%97">文字の足し算</h2>
+<p>「文字列どうし」は足し算することができます。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello,"</span> + <span class="hljs-string">"World!"</span>)
+</div></code></pre>
+<p>文字列の足し算の方法は簡単です。文字列と文字列の間に記号「 + 」を挟むだけです。文字列の足し算をすることで、複数の文字列をまとめてひとつの文として表示することができます。</p>
+<p>でも、今の時点では「文字列の足し算」の意味が感じられないかもしれません。わざわざ足し算を使わないでも、同じ「Hello,World!」を表示することができますもんね。しかし、この「文字列の足し算」は後々力を発揮します。ですから、今はこのまま覚えてください。</p>
+<h2 id="%E6%95%B0%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%97%E3%82%88%E3%81%86">数を表示しよう</h2>
+<p>コンピューターは計算が得意なのですから、当然「数」を扱うことができます。その方法は、文字列の時とほとんど同じです。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+</div></code></pre>
+<p>どうでしょうか、表示されましたか？では少しレベルアップして、計算をしてもらいましょう。</p>
+<h2 id="%E8%A8%88%E7%AE%97%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%8A%E3%81%86">計算してもらおう</h2>
+<p>足し算、引き算、掛け算、割り算と、基本的な計算の仕方を覚えましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">2</span> + <span class="hljs-number">3</span>)
+print(<span class="hljs-number">2</span> - <span class="hljs-number">3</span>)
+print(<span class="hljs-number">3</span> * <span class="hljs-number">5</span>)
+print(<span class="hljs-number">5</span> / <span class="hljs-number">2</span>)
+</div></code></pre>
+<p>足し算と引き算の時は、私たちが普段使う記号と同じものを使いますが、掛け算と割り算の時は違います。掛け算の記号は「 * 」、割り算の記号は「 / 」です。</p>
+<p>計算の順番は、算数でのルールと同じです。次のプログラムで確かめることができます。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-number">2</span> * <span class="hljs-number">3</span>)
+print((<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) * <span class="hljs-number">3</span>)
+</div></code></pre>
+<p>足し算より先に掛け算をして、括弧があればその中の計算を優先します。括弧の中に括弧が入り、少し見にくくなるので注意してください。エラーが出たら、括弧がきちんとペアになっているか確認しましょう。</p>
+<h2 id="%E6%95%B0%E3%81%A8%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E9%81%95%E3%81%84">数と文字列の違い</h2>
+<p>さて、ここは大変重要なポイントです。これまでに覚えた、数を表示するプログラムと、文字列を表示するプログラムを見比べてみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+</div></code></pre>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>違いが分かりますか？そう、ダブルクォーテーションです。上の「数」を表示するプログラムでは、ダブルクォーテーションは使われていません。一方の「文字列」を表示するプログラムでは、文字をダブルクオーテーションで囲むんでしたね。もし文字をダブルクォーテーションで囲まなかったら、エラーが出ます。</p>
+<pre class="hljs"><code><div>SyntaxError: invalid syntax
+</div></code></pre>
+<p>「構文エラー：無効な構文」という意味です。ダブルクォーテーションで囲ってあげないと、「文字」として扱われないので注意しましょう。</p>
+<p>では逆に、数をダブルクォーテーションで囲んだらどうなるでしょう？</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+print(<span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>どうでしょうか。見た感じは結果は同じですね。しかし、見た目は同じでも中身は別です。ダブルクォーテーションで囲んでいない方は「数の1」であり、囲んだ方は「文字列の1」です。・・・すこし分かりにくいですね。では、次のようなプログラムを書いて実験してみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
+print(<span class="hljs-string">"1"</span> + <span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>足し算のプログラムです。1行目では、「数の1」どうしを足していますから、結果は「数の2」が表示されます。そして2行目では、「文字列の1」どうしを足していて、結果は「文字列の11」です。これでなんとなく違いが分かったでしょうか？プログラミングの世界では、「数」と「文字列」は別物として扱います。数字をそのまま書くと「数」、ダブルクォーテーションで囲むと「文字列」になります。</p>
+<p>ちなみに、「数」と「文字列」の足し算をさせるとどうなるか、見てみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>これを実行すると、エラーが出ます。</p>
+<pre class="hljs"><code><div>TypeError: unsupported operand type(s) for +: 'int' and 'str'
+</div></code></pre>
+<p>「型エラー：整数と文字列は足し算できないよ！」てな感じです。見た目は同じ、中身は別物。すこし厄介ですが、とても重要なポイントです。</p>
+<h2 id="%E5%A4%89%E6%95%B0%E3%81%A3%E3%81%A6">「変数」って？</h2>
+<p>変数とは何でしょう？よく、変数は「値を入れる箱」と表現されます。実際にこの「変数」を使ったプログラムを書いてみましょう。</p>
+<pre class="hljs"><code><div>order = <span class="hljs-string">"うどん"</span>
+print(order)
+</div></code></pre>
+<p>このプログラムの1行目では、変数「order」に値「&quot;うどん&quot;」を代入しています。数学の「＝」と同じ記号を使いますが、Pythonの世界では少し違います。左側が変数、右側が代入する値です。左右を逆にすることはできません。</p>
+<p>そして2行目で変数「order」の「中身」を表示しています。このとき、画面には「order」ではなく「うどん」と表示されるのがポイントです。</p>
+<h2 id="%E5%A4%89%E6%95%B0%E3%81%AF%E4%BE%BF%E5%88%A9">変数は便利！</h2>
+<p>たとえば、飲食店で注文をとるロボットがいるとしましょう。お客さんが「うどん」を注文したら、第一に「ご注文はうどんですね？」と確認をします。その次に厨房に向かって「うどん一丁！」と伝えます。これがロボットがするべき仕事です。では、このロボットのプログラムを書いてみましょう。まずは「変数」を使わないで書いてみてください。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"ご注文はうどんですね？"</span>)
+print(<span class="hljs-string">"うどん一丁！"</span>)
+</div></code></pre>
+<p>確かに、このプログラムでもロボットは最低限の仕事をしてくれます。次に、別のお客さんが「そば」を注文した場合のプログラムを書いてみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"ご注文はそばですね？"</span>)
+print(<span class="hljs-string">"そば一丁！"</span>)
+</div></code></pre>
+<p>きっと、「うどんを消して蕎麦と入力」という作業を2回行うことになるでしょう。このくらいならまだいいですが、次のお客さんが「ごぼう天うどんのミニカツ丼セット」を注文したらどうでしょうか。2回も長い商品名を入力するのはちょっと面倒ですよね。注文が長いので、厨房に間違った注文を伝えるミスも起こりやすくなります。</p>
+<p>こんな時に力を発揮するのが「変数」なのです。変数を使ったプログラムに書き換えてみましょう。</p>
+<pre class="hljs"><code><div>order = <span class="hljs-string">"うどん"</span>
+print(<span class="hljs-string">"ご注文は"</span> + order + <span class="hljs-string">"ですね？"</span>)
+print(order + <span class="hljs-string">"一丁！"</span>)
+</div></code></pre>
+<p>プログラムは3行に長くなりましたが、注文内容を変える時は1行目を書き換えるだけで済みます。</p>
+<p>変数のイメージがつかめたでしょうか？これまでは飲食店のロボットの想定でしたが、今度はより現実的な例を見てみましょう。半径が2の円の面積を求めるプログラムを書いてみてください。「円の面積＝半径x半径x円周率」ですね。</p>
+<ul>
+<li>変数を使わない場合</li>
+</ul>
+<pre class="hljs"><code><div>print(<span class="hljs-number">2</span> * <span class="hljs-number">2</span> * <span class="hljs-number">3.14</span>)
+</div></code></pre>
+<ul>
+<li>変数を使う場合</li>
+</ul>
+<pre class="hljs"><code><div>r = <span class="hljs-number">2</span>
+print(r * r * <span class="hljs-number">3.14</span>)
+</div></code></pre>
+<p>どうでしょうか？一回しか使わないプログラムであれば、わざわざ変数を使わないでもいいかもしれません。でも、世の中の円の半径は2だけではないですよね。そんなときも、変数を使えば1行目を書き換えるだけで済み、手間やミスも減ります。</p>
+<p>ちなみに、変数の名前の付け方はとても重要です。大規模なプログラムを作るときは、何人か集まって協力しながらプログラミングをすることがあります。こんな時に変数の名前を意味がないもの（a,x,など）にすると、大変読みにくいプログラムになってしまいます。ですから、変数の名前はできる限り内容がすぐ分かるようなものにするのが大切です。仲間のため、あるいは将来の自分のためにも、変数の名前はよく考えて名付けましょう。</p>
+<h2 id="input%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86">「input()」を使ってみよう</h2>
+<pre class="hljs"><code><div>a = input(<span class="hljs-string">"入力してください"</span>)
+print(<span class="hljs-string">"あなたは「"</span> + a + <span class="hljs-string">"」と入力しました。"</span>)
+</div></code></pre>
+<h1 id="3-%E5%87%A6%E7%90%86%E3%81%AE%E6%B5%81%E3%82%8C%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B">3 処理の流れを変える</h1>
+<p>これまでのプログラムは、決まった処理を順番通りに進んでいく、とても単純なプログラムでした。では次に、「OOだったら、XXする。」この表現を覚えましょう。プログラムの三大原則のひとつ「分岐」です。条件によって処理を変えることができます。</p>
+<h2 id="%E6%9D%A1%E4%BB%B6%E3%81%A3%E3%81%A6">条件って？</h2>
+<p>「条件」とは、「OOだったら」の部分です。「変数xが10より大きかったら」とか、「aが1だったら」とかです。これらのことをPythonではどのように表すのでしょうか？</p>
+<h2 id="%E6%95%B0%E3%81%AE%E5%A4%A7%E3%81%8D%E3%81%95%E3%82%92%E6%AF%94%E8%BC%83">数の大きさを比較</h2>
+<p>数の大きさを比較するときには、主に3つの記号を使います。</p>
+<ul>
+<li>「&lt;」</li>
+<li>「&gt;」</li>
+<li>「==」 ・・・2文字です！注意！</li>
+</ul>
+<p>これらの記号を使うことで、「数の大きさ」を比べることができますが、Pythonが返すことができる答えは2種類しかありません。実際にプログラムを書いてみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">3</span> &lt; <span class="hljs-number">2</span>)
+print(<span class="hljs-number">3</span> == <span class="hljs-number">2</span>)
+print(<span class="hljs-number">3</span> == <span class="hljs-number">3</span>)
+print(<span class="hljs-number">3</span> &gt; <span class="hljs-number">2</span>)
+</div></code></pre>
+<p>実行します。</p>
+<pre class="hljs"><code><div>False
+False
+True
+True
+</div></code></pre>
+<p>どうでしょう。返ってくる答えの規則が分かりますか？</p>
+<p>「True」は「正しい」、「False」は「正しくない」ことを意味します。不等号や「==」を使うことによって、その式が「正しい」か「正しくない」のかを知ることができます。</p>
+<p>これで、「OOだったら」の条件の部分を表現することができました。次に、実際に処理を変える方法を見てみましょう。</p>
+<h2 id="%E3%82%82%E3%81%97oo%E3%81%A0%E3%81%A3%E3%81%9F%E3%82%89xx%E3%81%99%E3%82%8B">「もし」OOだったらXXする</h2>
+<p>「もし」は、処理の分岐の基本です。（個人的なイメージは、物流倉庫のベルトコンベヤーの上の荷物が宛て先によって振り分けられていく感じです。）「もしも」の話をするときは英語で「if」を使いますよね。これはPythonでも同じです。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> 「条件」: <span class="hljs-comment">#「:」コロンを忘れずに！</span>
+    「条件を満たしたときの処理」
+    （左の余白も重要です！）
+<span class="hljs-keyword">else</span>:
+    「条件を満たさなかったときの処理」
+</div></code></pre>
+<p>実際に書いてみましょう。年齢を尋ねて、成人かどうかを判断するプログラムを作ってみましょう。「年齢」は英語で「age」です。</p>
+<pre class="hljs"><code><div>age = input(<span class="hljs-string">"あなたの年齢を入力してください。"</span>)
+<span class="hljs-keyword">if</span> int(age) &lt; <span class="hljs-number">20</span>:
+    print(<span class="hljs-string">"あなたは未成年です。"</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"あなたは成人です。"</span>)
+</div></code></pre>
+<p>1行目で、変数「age」に入力された年齢を代入します。（このとき、input()で入力された年齢は「文字列」です。文字列を「int()」のかっこで囲むことで、整数に変換して扱うことができます。）2行目で、年齢が20より小さいかどうかを判断します。「age」に14が代入されていたとすると条件「14 &lt; 20」が成り立つので「True」となり、3行目に進むことができます。例えば「age」が24の場合は、「24 &lt; 20」は成り立たないので「False」となり、3行目を飛ばして「else」の処理に入ります。</p>
+<h1 id="4-%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%99">4 繰り返す</h1>
+<p>次は、プログラムの三大原則の三つ目「反復」です。「反復」を使うことができるようになれば、面倒な単純作業をコンピューターに任せることができます。さらに、人間にはできないような規模の大きな処理を頼むこともできます。「反復」はとても便利な考え方です。</p>
+<h2 id="for%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97">「for」繰り返し</h2>
+<p>繰り返しにはいくつか種類がありますが、ここでは最も単純な繰り返しを使えるようになりましょう。「同じ処理を」何回も繰り返すことができます。その文法はこちら。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n): <span class="hljs-comment"># nは繰り返す回数</span>
+    「繰り返したい処理」
+（↑ここの余白が重要です！）
+</div></code></pre>
+<p>これだけで、同じ処理を何回も繰り返すことができます。（本来はもっと深い意味があるのですが、それはまた次のステップで。）</p>
+<p>実際のプログラムで確認してみましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>どうでしょう。同じ文が5行表示されましたね。</p>
+<h2 id="%E6%84%8F%E5%91%B3%E3%82%92%E6%8C%81%E3%81%A4%E7%A9%BA%E7%99%BD">意味を持つ「空白」</h2>
+<p>Pythonでは「空白」が重要な意味をもっていて、「分岐」や「反復」を表すときに登場します。意味のある「空白」のことを「字下げ」や「インデント」と言います。通常、半角スペースが4つでひとつの「字下げ」です。「字下げ」した部分を「ブロック」といい、処理のまとまりを表します。</p>
+<p>「分岐」を思い出して確認しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> 「条件」:
+    「処理A」
+<span class="hljs-keyword">else</span>:
+    「処理B」
+</div></code></pre>
+<p>では次に、「反復」の場合も。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+    「処理」
+</div></code></pre>
+<p>「字下げ」のミスをすると構造が変わってしまい、予期しない動きをしたり、エラーが出たりします。見た目は「空白」でも、Pythonの世界では重要な意味を持っているので、注意しましょう。</p>
+<h2 id="for%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97%E3%81%AF%E4%BE%BF%E5%88%A9">「for」繰り返しは便利！</h2>
+<p>先ほどの例では、「for」を使った同じ処理の繰り返しで、「Hello, World!」を5回表示しました。でも、これでは「for」繰り返しのパワーを使いこなしているとはいえません。「変数」と組み合わせることによって、さらなるパワーを発揮させることができます。少し複雑になりますが、ゆっくり考えて理解しましょう。</p>
+<p>さっそく、「変数」と「反復」の織りなすハーモニーの世界に入ってみましょう。まずは、次のプログラムを見てください。</p>
+<pre class="hljs"><code><div>n = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(n)
+</div></code></pre>
+<p>実行する前に、どんな動きをするか予想してみましょう。予想がついたら、実行してみてください。</p>
+<pre class="hljs"><code><div>1
+1
+1
+1
+1
+</div></code></pre>
+<p>予想は当たりましたか？「print(n)」という同じ処理を5回繰り返す、ということで変数「n」に代入されていた数「1」が5回表示されましたね。</p>
+<p>ではでは次に、繰り返しのブロックの中に「n = n + 1」の1行を書き加えてください。プログラム全体はこうなります。</p>
+<pre class="hljs"><code><div>n = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(n)
+    n = n + <span class="hljs-number">1</span> <span class="hljs-comment"># 書き加えた部分</span>
+</div></code></pre>
+<p>さて、「n = n + 1」について詳しく考えてみましょう。数学の感覚で見ると、この式には違和感がありますね。「左辺と、左辺に1を足した数は等しい」・・・むむむ？成り立つの？。では、見方のスイッチを「プログラミング」に切り替えてください。すると、記号「=」は、「等しい」という意味から「代入」という意味に切り替わります。プログラミングの見方で、もう一度見てみましょう。「変数nに、『変数nに1足したもの』を代入する」と読めますか？</p>
+<p>ーーーーーーーーーーーーーー</p>
+<p>どうでしょうか？プログラミング特有の考え方に慣れてきましたか？次は「ランダム」を扱います。ランダムな要素が入ってくると、意図しない処理の進み方になったり、エラーが出たりしやすくなります。これまでの「基本」アイテムの使い方をしっかりと身につけましょう。</p>
+<h1 id="5-%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%82%92%E6%89%B1%E3%81%86">5 「ランダム」を扱う</h1>
+<h2 id="random%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">「random」モジュールのインポート</h2>
+<p>これからは、「ランダム」を扱います。しかし「ランダム」はPythonの初期装備には含まれていません。でも大丈夫、Pythonには「ランダム」の世界を扱うことができるようになる魔法の一文があります。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> random
+</div></code></pre>
+<p>この一行でにふりがなを付けるとすると「『ランダム』モジュールをインポートする」といったところでしょうか。モジュールは「道具箱」のようなイメージです。「import random」でランダムに関するアイテムを、「import time」で時間に関するアイテムを使うことができます。</p>
+<h2 id="%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86">アイテムを使ってみよう</h2>
+<p>では「ランダム」モジュールのアイテムを見てみましょう。モジュールのインポートで追加装備したアイテムを使うときには、「モジュール.アイテム」と書きます。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> random
+a = random.random()
+print(a)
+</div></code></pre>
+<p>このプログラムを実行してみてください。「0.xxxxxxxx」と、小数が表示されましたか？では繰り返し、同じプログラムを実行してみましょう。どうでしょう。毎回表示される数が異なるはずです。</p>
+<p>この「random.random()」というアイテムは、「0から1」の間の数をランダムに返すアイテムです。</p>
+
+</body>
+</html>
