@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hello-programming-world">Hello, Programming World!</h1>
+<h1 id="4-%E5%87%A6%E7%90%86%E3%81%AE%E6%B5%81%E3%82%8C%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E5%8F%8D%E5%BE%A9">4 処理の流れを変える「反復」</h1>
+<p>次は、プログラムの三大原則の三つ目「反復」です。「反復」を使うことができるようになれば、面倒な単純作業をコンピューターに任せることができます。さらに、人間にはできないような規模の大きな処理を頼むこともできます。「反復」はとても便利な考え方です。</p>
+<h2 id="for%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97">「for」繰り返し</h2>
+<p>繰り返しにはいくつか種類がありますが、ここでは最も単純な繰り返しを使えるようになりましょう。「同じ処理を」何回も繰り返すことができます。その文法はこちら。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n): <span class="hljs-comment"># nは繰り返す回数</span>
+    「繰り返したい処理」
+（↑ここの余白が重要です！）
+</div></code></pre>
+<p>これだけで、同じ処理を何回も繰り返すことができます。（本来はもっと深い意味があるのですが、それはまた次のステップで。）</p>
+<p>実際のプログラムで確認してみましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>どうでしょう。同じ文が5行表示されましたね。</p>
+<h2 id="%E6%84%8F%E5%91%B3%E3%82%92%E6%8C%81%E3%81%A4%E7%A9%BA%E7%99%BD">意味を持つ「空白」</h2>
+<p>Pythonでは「空白」が重要な意味をもっていて、「分岐」や「反復」を表すときに登場します。意味のある「空白」のことを「字下げ」や「インデント」と言います。通常、半角スペースが4つでひとつの「字下げ」です。「字下げ」した部分を「ブロック」といい、処理のまとまりを表します。</p>
+<p>「分岐」を思い出して確認しましょう。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> 「条件」:
+    「処理A」
+<span class="hljs-keyword">else</span>:
+    「処理B」
+</div></code></pre>
+<p>では次に、「反復」の場合も。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+    「処理」
+</div></code></pre>
+<p>「字下げ」のミスをすると構造が変わってしまい、予期しない動きをしたり、エラーが出たりします。見た目は「空白」でも、Pythonの世界では重要な意味を持っているので、注意しましょう。</p>
+<h2 id="for%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97%E3%81%AF%E4%BE%BF%E5%88%A9">「for」繰り返しは便利！</h2>
+<p>先ほどの例では、「for」を使った同じ処理の繰り返しで、「Hello, World!」を5回表示しました。でも、これでは「for」繰り返しのパワーを使いこなしているとはいえません。「変数」と組み合わせることによって、さらなるパワーを発揮させることができます。少し複雑になりますが、ゆっくり考えて理解しましょう。まずは、次のプログラムを見てください。</p>
+<pre class="hljs"><code><div>n = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(n)
+</div></code></pre>
+<p>実行する前に、どんな動きをするか予想してみましょう。予想がついたら、実行してみてください。</p>
+<pre class="hljs"><code><div>1
+1
+1
+1
+1
+</div></code></pre>
+<p>予想は当たりましたか？「print(n)」という同じ処理を5回繰り返す、ということで変数「n」に代入されていた数「1」が5回表示されましたね。</p>
+<p>ではでは次に、繰り返しのブロックの中に「n = n + 1」の1行を書き加えてください。プログラム全体はこうなります。</p>
+<pre class="hljs"><code><div>n = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(n)
+    n = n + <span class="hljs-number">1</span> <span class="hljs-comment"># 書き加えた部分</span>
+</div></code></pre>
+<p>さて、「n = n + 1」について詳しく考えてみましょう。数学の感覚で見ると、この式には違和感がありますね。「左辺と、左辺に1を足した数は等しい」・・・むむむ？成り立つの？。</p>
+<p>では、見方のスイッチを「プログラミング」に切り替えてください。すると、記号「=」は、「等しい」という意味から「代入」という意味に切り替わります。プログラミングの見方で、もう一度見てみましょう。「変数nに、『変数nに1足したもの』を代入する」と読めますか？
+例を挙げると、変数nに「1」が代入されているときに「n = n + 1」の処理が入ると、変数nには新たに「2」が代入されます。このプログラムの場合は、それがforループで繰り返されます。実際に実行して確かめましょう。</p>
+<pre class="hljs"><code><div>1
+2
+3
+4
+5
+</div></code></pre>
+<p>この「n = n + 1」という処理は物事をカウントする際などでよく使う、便利な表現です。</p>
+<p>では演習として、「変数」「反復」に加えて、「分岐」も取り入れたプログラムをみてみましょう。テーマは「数当てゲーム」です。ルールは簡単。挑戦者が数を入力すると、正解より大きいか小さいかが返ってきます。限られた回数の中で正解にたどり着けるか？というゲームです。プログラムはこちら。</p>
+<pre class="hljs"><code><div>atari = <span class="hljs-number">5</span>
+n = <span class="hljs-number">5</span> <span class="hljs-comment"># n回までチャレンジできる</span>
+r = <span class="hljs-number">0</span> <span class="hljs-comment"># カウント用</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+    r = r + <span class="hljs-number">1</span>
+    print(r, <span class="hljs-string">"回目の予想 残り"</span>, n-r+<span class="hljs-number">1</span>, <span class="hljs-string">"回です。"</span>)
+    yosou = input(<span class="hljs-string">"数を入力してください &gt;&gt;&gt; "</span>)
+    yosou = int(yosou) <span class="hljs-comment"># 文字列を整数に変換</span>
+    <span class="hljs-keyword">if</span> yosou &lt; atari:
+        print(<span class="hljs-string">"もっと大きいです。\n"</span>)
+    <span class="hljs-keyword">elif</span> yosou &gt; atari:
+        print(<span class="hljs-string">"もっと小さいです。\n"</span>)
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">"あたりです！"</span>)
+        <span class="hljs-keyword">break</span> <span class="hljs-comment"># forループを抜け出す</span>
+print(<span class="hljs-string">"正解は"</span>, atari, <span class="hljs-string">"でした。"</span>)
+</div></code></pre>
+<p>どうでしょうか？プログラミング特有の考え方に慣れてきましたか？「数当てゲーム」なのに、答えが常に同じだったらあまり楽しくないですよね。ということで、次は「ランダム」を扱います。ランダムな要素が入ってくると、意図しない処理の進み方になったり、エラーが出たりしやすくなります。これまでの「基本」アイテムの使い方をしっかりと身につけましょう。</p>
+
+<hr>
+<a href="./index.html">Main Page</a>
+
+</body>
+</html>

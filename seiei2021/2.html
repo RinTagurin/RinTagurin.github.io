@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hello-programming-world">Hello, Programming World!</h1>
+<h1 id="2-python%E3%81%AE%E5%9F%BA%E6%9C%AC">2 Pythonの基本</h1>
+<h2 id="%E6%96%87%E5%AD%97%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%97%E3%82%88%E3%81%86">文字を表示しよう</h2>
+<p>何かを始める時には「儀式」があるものです。プログラミングの世界でも「儀式」があります。Pythonを学び始める際に、決まって作られるプログラムがあるので紹介します。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>「儀式」のプログラムといえば、長いものを思い浮かべるかもしれません。（卒業式とか・・・）でも、Pythonの儀式のプログラムはたった1行だけです。短いですが、これはPythonプログラミングの基礎の基礎の基礎です。</p>
+<p>「 print() 」は、「括弧の中身を表示する」という命令です。この場合、中身は「 &quot;Hello, World!&quot; 」ですね。ここで重要なのが、記号「 &quot; 」（ダブルクォーテーション）で表示したいものを囲むことです。これで囲んだものは「文字列」として扱われます。</p>
+<h2 id="%E6%96%87%E5%AD%97%E3%81%AE%E8%B6%B3%E3%81%97%E7%AE%97">文字の足し算</h2>
+<p>「文字列どうし」は足し算することができます。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello,"</span> + <span class="hljs-string">"World!"</span>)
+</div></code></pre>
+<p>文字列の足し算の方法は簡単です。文字列と文字列の間に記号「 + 」を挟むだけです。文字列の足し算をすることで、複数の文字列をまとめてひとつの文として表示することができます。</p>
+<p>でも、今の時点では「文字列の足し算」の意味が感じられないかもしれません。わざわざ足し算を使わないでも、同じ「Hello,World!」を表示することができますもんね。しかし、この「文字列の足し算」は後々力を発揮します。ですから、今はこのまま覚えてください。</p>
+<h2 id="%E6%95%B0%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%97%E3%82%88%E3%81%86">数を表示しよう</h2>
+<p>コンピューターは計算が得意なのですから、当然「数」を扱うことができます。その方法は、文字列の時とほとんど同じです。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+</div></code></pre>
+<p>どうでしょうか、表示されましたか？では少しレベルアップして、計算をしてもらいましょう。</p>
+<h2 id="%E8%A8%88%E7%AE%97%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%8A%E3%81%86">計算してもらおう</h2>
+<p>足し算、引き算、掛け算、割り算と、基本的な計算の仕方を覚えましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">2</span> + <span class="hljs-number">3</span>)
+print(<span class="hljs-number">2</span> - <span class="hljs-number">3</span>)
+print(<span class="hljs-number">3</span> * <span class="hljs-number">5</span>)
+print(<span class="hljs-number">5</span> / <span class="hljs-number">2</span>)
+</div></code></pre>
+<p>足し算と引き算の時は、私たちが普段使う記号と同じものを使いますが、掛け算と割り算の時は違います。掛け算の記号は「 * 」、割り算の記号は「 / 」です。</p>
+<p>計算の順番は、算数でのルールと同じです。次のプログラムで確かめることができます。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-number">2</span> * <span class="hljs-number">3</span>)
+print((<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) * <span class="hljs-number">3</span>)
+</div></code></pre>
+<p>足し算より先に掛け算をして、括弧があればその中の計算を優先します。括弧の中に括弧が入り、少し見にくくなるので注意してください。エラーが出たら、括弧がきちんとペアになっているか確認しましょう。</p>
+<h2 id="%E6%95%B0%E3%81%A8%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E9%81%95%E3%81%84">数と文字列の違い</h2>
+<p>さて、ここは大変重要なポイントです。これまでに覚えた、数を表示するプログラムと、文字列を表示するプログラムを見比べてみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+</div></code></pre>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"Hello, World!"</span>)
+</div></code></pre>
+<p>違いが分かりますか？そう、ダブルクォーテーションです。上の「数」を表示するプログラムでは、ダブルクォーテーションは使われていません。一方の「文字列」を表示するプログラムでは、文字をダブルクオーテーションで囲むんでしたね。もし文字をダブルクォーテーションで囲まなかったら、エラーが出ます。</p>
+<pre class="hljs"><code><div>SyntaxError: invalid syntax
+</div></code></pre>
+<p>「構文エラー：無効な構文」という意味です。ダブルクォーテーションで囲ってあげないと、「文字」として扱われないので注意しましょう。</p>
+<p>では逆に、数をダブルクォーテーションで囲んだらどうなるでしょう？</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span>)
+print(<span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>どうでしょうか。見た感じは結果は同じですね。しかし、見た目は同じでも中身は別です。ダブルクォーテーションで囲んでいない方は「数の1」であり、囲んだ方は「文字列の1」です。・・・すこし分かりにくいですね。では、次のようなプログラムを書いて実験してみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)
+print(<span class="hljs-string">"1"</span> + <span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>足し算のプログラムです。1行目では、「数の1」どうしを足していますから、結果は「数の2」が表示されます。そして2行目では、「文字列の1」どうしを足していて、結果は「文字列の11」です。これでなんとなく違いが分かったでしょうか？プログラミングの世界では、「数」と「文字列」は別物として扱います。数字をそのまま書くと「数」、ダブルクォーテーションで囲むと「文字列」になります。</p>
+<p>ちなみに、「数」と「文字列」の足し算をさせるとどうなるか、見てみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-number">1</span> + <span class="hljs-string">"1"</span>)
+</div></code></pre>
+<p>これを実行すると、エラーが出ます。</p>
+<pre class="hljs"><code><div>TypeError: unsupported operand type(s) for +: 'int' and 'str'
+</div></code></pre>
+<p>「型エラー：整数と文字列は足し算できないよ！」てな感じです。見た目は同じ、中身は別物。すこし厄介ですが、とても重要なポイントです。</p>
+<h2 id="%E5%A4%89%E6%95%B0%E3%81%A3%E3%81%A6">「変数」って？</h2>
+<p>変数とは何でしょう？よく、変数は「値を入れる箱」と表現されます。実際にこの「変数」を使ったプログラムを書いてみましょう。</p>
+<pre class="hljs"><code><div>order = <span class="hljs-string">"うどん"</span>
+print(order)
+</div></code></pre>
+<p>このプログラムの1行目では、変数「order」に値「&quot;うどん&quot;」を代入しています。数学の「＝」と同じ記号を使いますが、Pythonの世界では少し違います。左側が変数、右側が代入する値です。左右を逆にすることはできません。</p>
+<p>そして2行目で変数「order」の「中身」を表示しています。このとき、画面には「order」ではなく「うどん」と表示されるのがポイントです。</p>
+<h2 id="%E5%A4%89%E6%95%B0%E3%81%AF%E4%BE%BF%E5%88%A9">変数は便利！</h2>
+<p>たとえば、飲食店で注文をとるロボットがいるとしましょう。お客さんが「うどん」を注文したら、第一に「ご注文はうどんですね？」と確認をします。その次に厨房に向かって「うどん一丁！」と伝えます。これがロボットがするべき仕事です。では、このロボットのプログラムを書いてみましょう。まずは「変数」を使わないで書いてみてください。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"ご注文はうどんですね？"</span>)
+print(<span class="hljs-string">"うどん一丁！"</span>)
+</div></code></pre>
+<p>確かに、このプログラムでもロボットは最低限の仕事をしてくれます。次に、別のお客さんが「そば」を注文した場合のプログラムを書いてみましょう。</p>
+<pre class="hljs"><code><div>print(<span class="hljs-string">"ご注文はそばですね？"</span>)
+print(<span class="hljs-string">"そば一丁！"</span>)
+</div></code></pre>
+<p>きっと、「うどんを消して蕎麦と入力」という作業を2回行うことになるでしょう。このくらいならまだいいですが、次のお客さんが「ごぼう天うどんのミニカツ丼セット」を注文したらどうでしょうか。2回も長い商品名を入力するのはちょっと面倒ですよね。注文が長いので、厨房に間違った注文を伝えるミスも起こりやすくなります。</p>
+<p>こんな時に力を発揮するのが「変数」なのです。変数を使ったプログラムに書き換えてみましょう。</p>
+<pre class="hljs"><code><div>order = <span class="hljs-string">"うどん"</span>
+print(<span class="hljs-string">"ご注文は"</span> + order + <span class="hljs-string">"ですね？"</span>)
+print(order + <span class="hljs-string">"一丁！"</span>)
+</div></code></pre>
+<p>プログラムは3行に長くなりましたが、注文内容を変える時は1行目を書き換えるだけで済みます。</p>
+<p>変数のイメージがつかめたでしょうか？これまでは飲食店のロボットの想定でしたが、今度はより現実的な例を見てみましょう。半径が2の円の面積を求めるプログラムを書いてみてください。「円の面積＝半径x半径x円周率」ですね。</p>
+<ul>
+<li>変数を使わない場合</li>
+</ul>
+<pre class="hljs"><code><div>print(<span class="hljs-number">2</span> * <span class="hljs-number">2</span> * <span class="hljs-number">3.14</span>)
+</div></code></pre>
+<ul>
+<li>変数を使う場合</li>
+</ul>
+<pre class="hljs"><code><div>r = <span class="hljs-number">2</span>
+print(r * r * <span class="hljs-number">3.14</span>)
+</div></code></pre>
+<p>どうでしょうか？一回しか使わないプログラムであれば、わざわざ変数を使わないでもいいかもしれません。でも、世の中の円の半径は2だけではないですよね。そんなときも、変数を使えば1行目を書き換えるだけで済み、手間やミスも減ります。</p>
+<p>ちなみに、変数の名前の付け方はとても重要です。大規模なプログラムを作るときは、何人か集まって協力しながらプログラミングをすることがあります。こんな時に変数の名前を意味がないもの（a,x,など）にすると、大変読みにくいプログラムになってしまいます。ですから、変数の名前はできる限り内容がすぐ分かるようなものにするのが大切です。仲間のため、あるいは将来の自分のためにも、変数の名前はよく考えて名付けましょう。</p>
+<h2 id="input%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86">「input()」を使ってみよう</h2>
+<p>Pythonでは出力だけでなく、入力することもできます。「input()」は文字列の入力を行う命令です。次のプログラムで確認してみましょう。</p>
+<pre class="hljs"><code><div>a = input(<span class="hljs-string">"入力してください"</span>)
+print(<span class="hljs-string">"あなたは「"</span> + a + <span class="hljs-string">"」と入力しました。"</span>)
+</div></code></pre>
+<p>プログラムを利用する段階で「入力」ができると、それに従った動きをさせることができます。次の章で、処理の流れを変える方法を学びましょう。</p>
+
+<hr>
+<a href="./index.html">Main Page</a>
+
+</body>
+</html>
